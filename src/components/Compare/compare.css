@@ -1,96 +1,247 @@
-.json-compare-wrapper {
-    transition: height 0.3s ease;
+/* Main wrapper */
+.compare-wrapper {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Card container */
+.compare-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
-.json-compare-wrapper.expanded {
-    height: 102vh;
-    overflow: scroll;
-}
-
-.btn-expand-top {
-    margin: 5px 2px 0px 24px;
-    padding: 2px 0 1px 0;
-    float: left;
-    color: #060606;
+/* Expand button */
+.expand-button {
+    margin: 15px 0 0 20px;
+    padding: 8px 12px;
     border: none;
     cursor: pointer;
-    background-color: white;
-    transform: rotate(180deg)
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s;
 }
 
-.json-compare-heading {
-    background: #ffb60094;
+.expand-button:hover {
+    background-color: #e0e0e0;
+}
+
+.expand-text {
+    font-size: 14px;
+}
+
+/* Heading */
+.compare-heading {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 7px;
-    margin-bottom: 5px;
+    margin: 15px auto 20px;
     max-width: 80%;
-    padding: 1rem 20px;
-    border-radius: 4px;
+    padding: 1.2rem 20px;
+    border-radius: 10px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-@media only screen and (max-width: 600px) {
-    .json-compare-heading {
-        font-size: 1.5em;
-    }
-}
-
+/* Textareas container */
 .textareas-container {
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
+    gap: 10px;
+    padding: 20px;
+    background-color: #f9fafb;
 }
 
-.diff-text-area-left,
-.diff-text-area-right {
+/* Textarea styling */
+.diff-textarea {
     flex: 1;
-    margin: 0 5px;
+    resize: none;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    font-family: monospace;
+    background-color: white;
+    outline: none;
+    transition: border-color 0.2s;
 }
 
-.diff-text-area-left {
-    height: 14rem;
-    width: 86%;
-    border: 1px solid black;
-    border-radius: 4px;
-    font-size: 15px;
-    padding: 11px;
-}
-.diff-text-area-right {
-    height: 14rem;
-    width: 86%;
-    border: 1px solid black;
-    border-radius: 4px;
-    font-size: 15px;
-    padding: 11px;
+.diff-textarea:focus {
+    border-color: #667eea;
 }
 
-.btn-container .btns-jsoncompare {
-    color: #080707;
-    background: #0065ffa3;
-    margin: 4px;
-    font-weight: bold;
+/* Diff panel */
+.diff-panel {
+    flex: 1;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.btn-container .btns-jsoncompare:hover {
-    background-color: #0065ff78;
-}
-
-.profile-container {
+/* Diff preview (before comparison) */
+.diff-preview {
     display: flex;
-    flex-direction: column;
-    justify-content: left;
-    gap: 20px;
-    text-align: left;
-    height: 100dvh;
-    min-height: 500px;
+    height: 100%;
 }
 
-.about-heading {
+.line-numbers-column {
+    background-color: #f7f7f7;
+    border-right: 1px solid #ddd;
+    font-size: 13px;
+    font-family: monospace;
+}
+
+.line-number {
+    padding: 2px 8px;
+    text-align: right;
+    color: #666;
+    user-select: none;
+    min-height: 21px;
+}
+
+.text-content {
+    flex: 1;
+    padding: 2px 8px;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 13px;
+    overflow-y: auto;
+}
+
+.placeholder-text {
+    color: #999;
+}
+
+/* Diff result container */
+.diff-result-container {
+    height: 100%;
+    overflow-y: auto;
+}
+
+/* Diff line */
+.diff-line {
+    display: flex;
+    min-height: 21px;
+}
+
+.removed-line {
+    background-color: rgba(255, 200, 200, 0.3);
+}
+
+.added-line {
+    background-color: rgba(200, 255, 200, 0.3);
+}
+
+.unchanged-line {
+    background-color: transparent;
+}
+
+.line-number-display {
+    background-color: #f7f7f7;
+    border-right: 1px solid #ddd;
+    padding: 2px 8px;
+    text-align: right;
+    color: #666;
+    user-select: none;
+    min-width: 40px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.line-content {
+    flex: 1;
+    padding: 2px 8px;
+    font-family: monospace;
+    font-size: 13px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.removed-line .line-content {
+    color: #c53030;
+}
+
+.added-line .line-content {
+    color: #2f855a;
+}
+
+.unchanged-line .line-content {
+    color: #333;
+}
+
+/* Button container */
+.button-container {
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+}
+
+/* Compare button */
+.btn-compare {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    background: none;
-    text-align: left;
-    justify-content: left;
-    padding: 0;
+    padding: 12px 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-compare:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+/* Reset button */
+.btn-reset {
+    margin-left: 15px;
+    padding: 12px 50px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    background-color: white;
+    color: #667eea;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-reset:hover {
+    background-color: #667eea;
+    color: white;
+}
+
+/* Responsive design */
+@media only screen and (max-width: 600px) {
+    .compare-heading {
+        font-size: 1.5em;
+        max-width: 90%;
+    }
+    
+    .textareas-container {
+        flex-direction: column;
+    }
+    
+    .btn-compare,
+    .btn-reset {
+        padding: 10px 30px;
+        font-size: 14px;
+    }
+    
+    .btn-reset {
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }

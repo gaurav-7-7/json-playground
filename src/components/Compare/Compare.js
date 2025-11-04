@@ -1,108 +1,166 @@
-/* eslint-disable */
-import React, { useState, useRef, useEffect } from 'react';
-import { diffWordsWithSpace } from 'diff';
-import { motion } from 'framer-motion'
-import Button from '@mui/material/Button';
+import React, { useState, useCallback } from 'react';
+import { diffLines } from 'diff';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import './compare.css';
 
 function Compare() {
-    // const [inputOne, setInputOne] = useState('');
-    // const [inputTwo, setInputTwo] = useState('');
-    // const [differences, setDifferences] = useState('');
-    // const [expanded, setExpanded] = useState(false);
-    // const compareTextareaRef1 = useRef(null);
-    // const compareTextareaRef2 = useRef(null);
-    // const [textareaHeight, setTextareaHeight] = useState('200px');
+    const [inputOne, setInputOne] = useState('');
+    const [inputTwo, setInputTwo] = useState('');
+    const [compared, setCompared] = useState(false);
+    const [expanded, setExpanded] = useState(false);
+    const [diffResult, setDiffResult] = useState([]);
+    
+    const textareaHeight = expanded ? '30rem' : '17rem';
 
+    const handleInputOneChange = (event) => {
+        setInputOne(event.target.value);
+        setCompared(false);
+    };
 
-    // useEffect(() => {
-    //     if (!compareTextareaRef1.current.contains(document.activeElement) && !compareTextareaRef2.current.contains(document.activeElement)) {
-    //         if (expanded) {
-    //             setTextareaHeight(`${compareTextareaRef1.current.scrollHeight-256}em`);
-    //             setTextareaHeight(`${compareTextareaRef2.current.scrollHeight-256}em`);
-    //         } else {
-    //             setTextareaHeight('17rem');
-    //         }
-    //     }
+    const handleInputTwoChange = (event) => {
+        setInputTwo(event.target.value);
+        setCompared(false);
+    };
+
+    const expandWindow = () => {
+        setExpanded(!expanded);
+    };
+
+    const compareInputs = useCallback(() => {
+        if (!inputOne.trim() && !inputTwo.trim()) {
+            alert('Please enter text in both fields to compare.');
+            return;
+        }
         
-    // }, [expanded, inputOne, inputTwo]);
+        const diff = diffLines(inputOne, inputTwo);
+        setDiffResult(diff);
+        setCompared(true);
+    }, [inputOne, inputTwo]);
 
-    // const handleInputOneChange = (event) => {
-    //     setInputOne(event.target.value);
-    // };
+    const renderLineNumbers = (text) => {
+        const lines = text.split('\n');
+        return lines.map((_, index) => (
+            <div key={index} className="line-number">
+                {index + 1}
+            </div>
+        ));
+    };
 
-    // const handleInputTwoChange = (event) => {
-    //     setInputTwo(event.target.value);
-    // };
+    const renderDiffSide = (isLeft) => {
+        if (!compared) {
+            const text = isLeft ? inputOne : inputTwo;
+            return (
+                <div className="diff-preview">
+                    <div className="line-numbers-column">
+                        {renderLineNumbers(text)}
+                    </div>
+                    <div className="text-content">
+                        {text || <span className="placeholder-text">Enter text...</span>}
+                    </div>
+                </div>
+            );
+        }
 
-    // const expandWindow = () => {
-    //     setExpanded(!expanded);
-    // };
+        let lineNumber = 1;
+        const content = [];
 
-    // const compareInputs = () => {
-    //     // Use diffWordsWithSpace for word-level comparison
-    //     const diff = diffWordsWithSpace(inputOne, inputTwo);
-    //     if (diff.length === 1 && !diff[0].added && !diff[0].removed) {
-    //         setDifferences('No differences found.');
-    //     } else {
-    //         const formattedDiff = diff.map((part, index) => {
-    //             const color = part.added ? 'green' : part.removed ? 'red' : 'grey';
-    //             const style = { backgroundColor: color, padding: '0.1em 0', marginRight: '2px' }; // Add styles for clarity
-    //             return <span key={index} style={style}>{part.value}</span>;
-    //         });
-    //         setDifferences(<div style={{ whiteSpace: 'pre-wrap', lineHeight: '1.6' }}>{formattedDiff}</div>);
-    //     }
-    // };
+        diffResult.forEach((part, index) => {
+            const shouldShow = isLeft ? !part.added : !part.removed;
+            
+            if (shouldShow) {
+                const lines = part.value.split('\n');
+                if (lines[lines.length - 1] === '') lines.pop();
+                
+                lines.forEach((line, lineIndex) => {
+                    const lineClass = part.removed && isLeft ? 'removed-line' : 
+                                     part.added && !isLeft ? 'added-line' : 
+                                     'unchanged-line';
+
+                    content.push(
+                        <div key={`${index}-${lineIndex}`} className={`diff-line ${lineClass}`}>
+                            <div className="line-number-display">
+                                {lineNumber}
+                            </div>
+                            <div className="line-content">
+                                {line}
+                            </div>
+                        </div>
+                    );
+                    lineNumber++;
+                });
+            }
+        });
+
+        return <div className="diff-result-container">{content}</div>;
+    };
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: .5 }}
-        >
-            {/* <div className={`json-compare-wrapper ${expanded ? 'expanded' : ''}`}>
-                <button className='btn-expand-top' onClick={expandWindow}>
-                    {expanded ? <i className="material-icons">expand_less</i> : <i className="material-icons">expand_more</i>}
+        <div className="compare-wrapper">
+            <div className="compare-card">
+                <button 
+                    onClick={expandWindow}
+                    className="expand-button"
+                >
+                    {expanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                    <span className="expand-text">{expanded ? 'Collapse' : 'Expand'}</span>
                 </button>
-                <h3 className='json-compare-heading'>Check Difference</h3>
-                <div className='textareas-container'>
-                    <textarea
-                        className='diff-text-area-left'
-                        value={inputOne}
-                        ref={compareTextareaRef1}
-                        onChange={handleInputOneChange}
-                        rows="10"
-                        cols="50"
-                        placeholder="Enter Text..."
-                        style={{ resize: 'none', height: textareaHeight }}
-                    />
-                    <textarea
-                        className='diff-text-area-right'
-                        value={inputTwo}
-                        ref={compareTextareaRef2}
-                        onChange={handleInputTwoChange}
-                        rows="10"
-                        cols="50"
-                        placeholder="Enter Text..."
-                        style={{ resize: 'none', height: textareaHeight }}
-                    />
+                
+                <h3 className="compare-heading">
+                    Check Difference
+                </h3>
+                
+                <div className="textareas-container">
+                    {!compared ? (
+                        <>
+                            <textarea
+                                value={inputOne}
+                                onChange={handleInputOneChange}
+                                placeholder="Enter first text..."
+                                className="diff-textarea"
+                                style={{ height: textareaHeight }}
+                            />
+                            <textarea
+                                value={inputTwo}
+                                onChange={handleInputTwoChange}
+                                placeholder="Enter second text..."
+                                className="diff-textarea"
+                                style={{ height: textareaHeight }}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <div className="diff-panel" style={{ height: textareaHeight }}>
+                                {renderDiffSide(true)}
+                            </div>
+                            <div className="diff-panel" style={{ height: textareaHeight }}>
+                                {renderDiffSide(false)}
+                            </div>
+                        </>
+                    )}
                 </div>
-                <div className='btn-container'>
-                    <Button className='btns-jsoncompare' onClick={compareInputs}>Compare</Button>
+                
+                <div className="button-container">
+                    <button 
+                        onClick={compareInputs}
+                        className="btn-compare"
+                    >
+                        Compare
+                    </button>
+                    {compared && (
+                        <button 
+                            onClick={() => {
+                                setCompared(false);
+                                setDiffResult([]);
+                            }}
+                            className="btn-reset"
+                        >
+                            Reset
+                        </button>
+                    )}
                 </div>
-                <div>
-                    <h2>Differences:</h2>
-                    {differences || <p>No differences detected or input is empty.</p>}
-                </div>
-            </div> */}
-            <section id="hero" className='profile-container'>
-                <div className='info'>
-                    <h3 className='about-heading'>Comming Soon ...!</h3>
-                </div>
-            </section>
-        </motion.div>
+            </div>
+        </div>
     );
 }
 
 export default Compare;
-
