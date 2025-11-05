@@ -1,165 +1,242 @@
-import React, { useState, useCallback } from 'react';
-import { diffLines } from 'diff';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+/* eslint-disable */
+import React, { useState, useRef, useEffect } from 'react';
+import { diffLines } from 'diff'; // Changed to diffLines for line-based diff
+import { motion } from 'framer-motion';
+import Button from '@mui/material/Button';
+import AceEditor from 'react-ace';
+import { FaCopy, FaCheck, FaHistory } from 'react-icons/fa';
+import History from '../Parse/History/History';
+import { ToastContainer, toast } from 'react-toastify';
+import 'brace/mode/text';
+import 'brace/theme/merbivore_soft';
+import 'react-toastify/dist/ReactToastify.css';
+import 'ace-builds/src-noconflict/ext-language_tools';
+import 'ace-builds/src-noconflict/ext-searchbox';
 import './compare.css';
 
 function Compare() {
     const [inputOne, setInputOne] = useState('');
     const [inputTwo, setInputTwo] = useState('');
-    const [compared, setCompared] = useState(false);
-    const [expanded, setExpanded] = useState(false);
-    const [diffResult, setDiffResult] = useState([]);
-    
-    const textareaHeight = expanded ? '30rem' : '17rem';
+    const [diffOne, setDiffOne] = useState('');
+    const [diffTwo, setDiffTwo] = useState('');
+    const [annotationsOne, setAnnotationsOne] = useState([]);
+    const [annotationsTwo, setAnnotationsTwo] = useState([]);
+    const [historyVisible, setHistoryVisible] = useState(false);
+    const [history, setHistory] = useState(
+        () => JSON.parse(localStorage.getItem('diffHistory')) || []
+    );
+    const [showCopyIcon, setShowCopyIcon] = useState(false);
+    const editorRef1 = useRef(null);
+    const editorRef2 = useRef(null);
+    const diffEditorRef1 = useRef(null);
+    const diffEditorRef2 = useRef(null);
 
-    const handleInputOneChange = (event) => {
-        setInputOne(event.target.value);
-        setCompared(false);
-    };
-
-    const handleInputTwoChange = (event) => {
-        setInputTwo(event.target.value);
-        setCompared(false);
-    };
-
-    const expandWindow = () => {
-        setExpanded(!expanded);
-    };
-
-    const compareInputs = useCallback(() => {
-        if (!inputOne.trim() && !inputTwo.trim()) {
-            alert('Please enter text in both fields to compare.');
+    const compareInputs = () => {
+        if (!inputOne.trim() || !inputTwo.trim()) {
+            toast.error('Both inputs must be filled to compare.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: true
+            });
             return;
         }
-        
+
         const diff = diffLines(inputOne, inputTwo);
-        setDiffResult(diff);
-        setCompared(true);
-    }, [inputOne, inputTwo]);
+        let leftDiff = '';
+        let rightDiff = '';
+        let annOne = [];
+        let annTwo = [];
+        let lineNum = 0;
 
-    const renderLineNumbers = (text) => {
-        const lines = text.split('\n');
-        return lines.map((_, index) => (
-            <div key={index} className="line-number">
-                {index + 1}
-            </div>
-        ));
-    };
-
-    const renderDiffSide = (isLeft) => {
-        if (!compared) {
-            const text = isLeft ? inputOne : inputTwo;
-            return (
-                <div className="diff-preview">
-                    <div className="line-numbers-column">
-                        {renderLineNumbers(text)}
-                    </div>
-                    <div className="text-content">
-                        {text || <span className="placeholder-text">Enter text...</span>}
-                    </div>
-                </div>
-            );
-        }
-
-        let lineNumber = 1;
-        const content = [];
-
-        diffResult.forEach((part, index) => {
-            const shouldShow = isLeft ? !part.added : !part.removed;
-            
-            if (shouldShow) {
-                const lines = part.value.split('\n');
-                if (lines[lines.length - 1] === '') lines.pop();
-                
-                lines.forEach((line, lineIndex) => {
-                    const lineClass = part.removed && isLeft ? 'removed-line' : 
-                                     part.added && !isLeft ? 'added-line' : 
-                                     'unchanged-line';
-
-                    content.push(
-                        <div key={`${index}-${lineIndex}`} className={`diff-line ${lineClass}`}>
-                            <div className="line-number-display">
-                                {lineNumber}
-                            </div>
-                            <div className="line-content">
-                                {line}
-                            </div>
-                        </div>
-                    );
-                    lineNumber++;
-                });
+        diff.forEach((part) => {
+            const lines = part.value.split('\n').filter(l => l !== '');
+            if (part.added) {
+                rightDiff += lines.map(line => `+ ${line}`).join('\n') + '\n';
+                leftDiff += '\n'.repeat(lines.length);
+                annTwo.push(...lines.map((_, idx) => ({ row: lineNum + idx, column: 0, text: 'Added', type: 'info' })));
+                lineNum += lines.length;
+            } else if (part.removed) {
+                leftDiff += lines.map(line => `- ${line}`).join('\n') + '\n';
+                rightDiff += '\n'.repeat(lines.length);
+                annOne.push(...lines.map((_, idx) => ({ row: lineNum + idx, column: 0, text: 'Removed', type: 'error' })));
+                lineNum += lines.length;
+            } else {
+                leftDiff += lines.map(line => `  ${line}`).join('\n') + '\n';
+                rightDiff += lines.map(line => `  ${line}`).join('\n') + '\n';
+                lineNum += lines.length;
             }
         });
 
-        return <div className="diff-result-container">{content}</div>;
+        if (diff.length === 1 && !diff[0].added && !diff[0].removed) {
+            setDiffOne('No differences found.');
+            setDiffTwo('No differences found.');
+            setAnnotationsOne([]);
+            setAnnotationsTwo([]);
+            updateHistory('No differences found.');
+        } else {
+            setDiffOne(leftDiff.trim());
+            setDiffTwo(rightDiff.trim());
+            setAnnotationsOne(annOne);
+            setAnnotationsTwo(annTwo);
+            updateHistory(`${leftDiff.trim()}\n---\n${rightDiff.trim()}`);
+        }
+    };
+
+    // const copyText = () => {
+    //     const fullDiff = `${diffOne}\n---\n${diffTwo}`;
+    //     if (navigator.clipboard) {
+    //         navigator.clipboard.writeText(fullDiff).then(() => {
+    //             setShowCopyIcon(true);
+    //             setTimeout(() => setShowCopyIcon(false), 2000);
+    //         }).catch(err => {
+    //             toast.error(`Failed to copy text: ${err.message}`);
+    //         });
+    //     } else {
+    //         toast.error('Clipboard API not available.');
+    //     }
+    // };
+
+    const handleSelectHistory = (selectedDiff) => {
+        const [left, right] = selectedDiff.split('\n---\n');
+        setDiffOne(left || '');
+        setDiffTwo(right || '');
+    };
+
+    const updateHistory = (diff) => {
+        const isDuplicate = history.some(entry => entry.diff === diff);
+        if (isDuplicate) return;
+
+        const newEntry = { diff, timestamp: new Date().toLocaleString() };
+        const newHistory = [newEntry, ...history].slice(0, 10);
+        setHistory(newHistory);
+        localStorage.setItem('diffHistory', JSON.stringify(newHistory));
+    };
+
+    const clearAllHistory = () => {
+        setHistory([]);
+        localStorage.removeItem('diffHistory');
+    };
+
+    const handleDelete = (indexToDelete) => {
+        setHistory(prev => prev.filter((_, index) => index !== indexToDelete));
+    };
+
+    const toggleHistory = () => {
+        setHistoryVisible(!historyVisible);
     };
 
     return (
-        <div className="compare-wrapper">
-            <div className="compare-card">
-                <button 
-                    onClick={expandWindow}
-                    className="expand-button"
-                >
-                    {expanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                    <span className="expand-text">{expanded ? 'Collapse' : 'Expand'}</span>
-                </button>
-                
-                <h3 className="compare-heading">
-                    Check Difference
-                </h3>
-                
-                <div className="textareas-container">
-                    {!compared ? (
-                        <>
-                            <textarea
-                                value={inputOne}
-                                onChange={handleInputOneChange}
-                                placeholder="Enter first text..."
-                                className="diff-textarea"
-                                style={{ height: textareaHeight }}
-                            />
-                            <textarea
-                                value={inputTwo}
-                                onChange={handleInputTwoChange}
-                                placeholder="Enter second text..."
-                                className="diff-textarea"
-                                style={{ height: textareaHeight }}
-                            />
-                        </>
-                    ) : (
-                        <>
-                            <div className="diff-panel" style={{ height: textareaHeight }}>
-                                {renderDiffSide(true)}
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
+            <div className="json-compare-wrapper">
+                <div className="diff-view-container">
+                    <div className="diff-editor-wrapper">
+                        <AceEditor
+                            mode="text"
+                            theme="merbivore_soft"
+                            value={diffOne}
+                            name="diffEditor1"
+                            editorProps={{ $blockScrolling: true }}
+                            readOnly={true}
+                            width="100%"
+                            height="60vh"
+                            fontSize={14}
+                            showPrintMargin={false}
+                            annotations={annotationsOne}
+                            ref={diffEditorRef1}
+                        />
+                    </div>
+                    <div className="diff-editor-wrapper">
+                        <AceEditor
+                            mode="text"
+                            theme="merbivore_soft"
+                            value={diffTwo}
+                            name="diffEditor2"
+                            editorProps={{ $blockScrolling: true }}
+                            readOnly={true}
+                            width="100%"
+                            height="60vh"
+                            fontSize={14}
+                            showPrintMargin={false}
+                            annotations={annotationsTwo}
+                            ref={diffEditorRef2}
+                        />
+                        {/* {showCopyIcon ? (
+                            <div className='copy-icon-container'>
+                                <FaCheck className='copy-icon-check' />
                             </div>
-                            <div className="diff-panel" style={{ height: textareaHeight }}>
-                                {renderDiffSide(false)}
+                        ) : (
+                            <div className='copy-icon-container'>
+                                <FaCopy className='copy-icon' onClick={copyText} title="Copy Diff" />
                             </div>
-                        </>
-                    )}
+                        )} */}
+                    </div>
                 </div>
-                
-                <div className="button-container">
-                    <button 
-                        onClick={compareInputs}
-                        className="btn-compare"
-                    >
-                        Compare
-                    </button>
-                    {compared && (
-                        <button 
-                            onClick={() => {
-                                setCompared(false);
-                                setDiffResult([]);
-                            }}
-                            className="btn-reset"
-                        >
-                            Reset
-                        </button>
-                    )}
+
+                {/* Edit View (Bottom) */}
+                <div className="edit-view-container">
+                    <div className="editor-wrapper">
+                        <AceEditor
+                            mode="text"
+                            theme="merbivore_soft"
+                            onChange={setInputOne}
+                            value={inputOne}
+                            placeholder="Enter Text..."
+                            name="editor1"
+                            editorProps={{ $blockScrolling: true }}
+                            enableBasicAutocompletion={true}
+                            enableLiveAutocompletion={true}
+                            enableSnippets={true}
+                            width="100%"
+                            height="40vh"
+                            fontSize={14}
+                            showPrintMargin={false}
+                            ref={editorRef1}
+                        />
+                    </div>
+                    <div className="editor-wrapper">
+                        <AceEditor
+                            mode="text"
+                            theme="merbivore_soft"
+                            onChange={setInputTwo}
+                            value={inputTwo}
+                            placeholder="Enter Text..."
+                            name="editor2"
+                            editorProps={{ $blockScrolling: true }}
+                            enableBasicAutocompletion={true}
+                            enableLiveAutocompletion={true}
+                            enableSnippets={true}
+                            width="100%"
+                            height="40vh"
+                            fontSize={14}
+                            showPrintMargin={false}
+                            ref={editorRef2}
+                        />
+                    </div>
                 </div>
+
+                <div className='btn-container'>
+                    <Button className='btns-jsoncompare' onClick={compareInputs}>Compare</Button>
+                    {/* <div className='btn-container-h'>
+                        {!historyVisible && (
+                            <FaHistory className='history-icon' size={35} onClick={toggleHistory} title="Show History" />
+                        )}
+                    </div> */}
+                </div>
+                <ToastContainer />
+                {/* <History
+                    history={history}
+                    isVisible={historyVisible}
+                    onSelect={handleSelectHistory}
+                    clearAllHistory={clearAllHistory}
+                    onDelete={handleDelete}
+                    toggleHistory={toggleHistory}
+                /> */}
             </div>
-        </div>
+        </motion.div>
     );
 }
 

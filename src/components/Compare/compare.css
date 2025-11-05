@@ -1,247 +1,202 @@
-/* Main wrapper */
-.compare-wrapper {
-    padding: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-/* Card container */
-.compare-card {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+.json-compare-wrapper {
+    transition: height 0.3s ease;
     overflow: hidden;
-}
-
-/* Expand button */
-.expand-button {
-    margin: 15px 0 0 20px;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border-radius: 6px;
+    margin: 1rem;
+    overflow-x: hidden;
     display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: background-color 0.2s;
+    flex-direction: column;
 }
 
-.expand-button:hover {
-    background-color: #e0e0e0;
+.diff-view-container, .edit-view-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
 }
 
-.expand-text {
-    font-size: 14px;
+.edit-view-container {
+    padding-top: 5.5rem;
 }
 
-/* Heading */
-.compare-heading {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+.diff-editor-wrapper, .editor-wrapper {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 0.5rem;
+    width: 48%;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.btn-container-a, .btn-container-h {
+    margin: 0;
+    justify-content: center;
     text-align: center;
-    margin: 15px auto 20px;
-    max-width: 80%;
-    padding: 1.2rem 20px;
-    border-radius: 10px;
-    font-size: 1.8rem;
-    font-weight: 600;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-}
-
-/* Textareas container */
-.textareas-container {
     display: flex;
-    gap: 10px;
-    padding: 20px;
-    background-color: #f9fafb;
+    flex-wrap: wrap;
+    padding: 1rem 0.5rem;
 }
 
-/* Textarea styling */
-.diff-textarea {
-    flex: 1;
-    resize: none;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 14px;
-    font-family: monospace;
-    background-color: white;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.diff-textarea:focus {
-    border-color: #667eea;
-}
-
-/* Diff panel */
-.diff-panel {
-    flex: 1;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Diff preview (before comparison) */
-.diff-preview {
-    display: flex;
-    height: 100%;
-}
-
-.line-numbers-column {
-    background-color: #f7f7f7;
-    border-right: 1px solid #ddd;
-    font-size: 13px;
-    font-family: monospace;
-}
-
-.line-number {
-    padding: 2px 8px;
-    text-align: right;
-    color: #666;
-    user-select: none;
-    min-height: 21px;
-}
-
-.text-content {
-    flex: 1;
-    padding: 2px 8px;
-    white-space: pre-wrap;
-    font-family: monospace;
-    font-size: 13px;
-    overflow-y: auto;
-}
-
-.placeholder-text {
-    color: #999;
-}
-
-/* Diff result container */
-.diff-result-container {
-    height: 100%;
-    overflow-y: auto;
-}
-
-/* Diff line */
-.diff-line {
-    display: flex;
-    min-height: 21px;
-}
-
-.removed-line {
-    background-color: rgba(255, 200, 200, 0.3);
-}
-
-.added-line {
-    background-color: rgba(200, 255, 200, 0.3);
-}
-
-.unchanged-line {
-    background-color: transparent;
-}
-
-.line-number-display {
-    background-color: #f7f7f7;
-    border-right: 1px solid #ddd;
-    padding: 2px 8px;
-    text-align: right;
-    color: #666;
-    user-select: none;
-    min-width: 40px;
-    font-family: monospace;
-    font-size: 13px;
-}
-
-.line-content {
-    flex: 1;
-    padding: 2px 8px;
-    font-family: monospace;
-    font-size: 13px;
-    white-space: pre-wrap;
-    word-break: break-word;
-}
-
-.removed-line .line-content {
-    color: #c53030;
-}
-
-.added-line .line-content {
-    color: #2f855a;
-}
-
-.unchanged-line .line-content {
-    color: #333;
-}
-
-/* Button container */
-.button-container {
-    padding: 20px;
-    text-align: center;
-    background-color: white;
-}
-
-/* Compare button */
-.btn-compare {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 12px 50px;
-    font-size: 16px;
-    font-weight: bold;
+.btn-container .btns-jsoncompare {
+    color: #080707 !important;
+    background: #ffffff !important;
     border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-compare:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-}
-
-/* Reset button */
-.btn-reset {
-    margin-left: 15px;
-    padding: 12px 50px;
-    font-size: 16px;
+    margin: 4px 7px;
     font-weight: bold;
-    border: 2px solid #667eea;
-    border-radius: 8px;
-    background-color: white;
-    color: #667eea;
+    transition: background-color 0.2s ease, transform 0.2s ease-in-out;
+}
+
+.btn-container .btns-jsoncompare:hover {
+    background: #ffffff !important;
+    border: none !important;
+    transform: scale(1.05);
+    color: #080707 !important;
+}
+
+.btn-container-h {
+    margin-left: auto;
+}
+
+.history-icon {
+    color: #fff;
     cursor: pointer;
-    transition: all 0.2s;
+    margin: 0.25rem 1rem 0 0;
+    transition: transform 0.2s ease-in-out;
 }
 
-.btn-reset:hover {
-    background-color: #667eea;
-    color: white;
+.copy-icon-container {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 10;
+    border-radius: 3px;
+    padding: 9px;
+    background: #191717;
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Responsive design */
+.copy-icon, .copy-icon-check {
+    color: #fff;
+    cursor: pointer;
+    font-size: 25px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.copy-icon-check {
+    color: rgb(70, 238, 70);
+}
+
+.copy-icon-container:hover {
+    transform: scale(1.2);
+}
+
 @media only screen and (max-width: 600px) {
-    .compare-heading {
-        font-size: 1.5em;
-        max-width: 90%;
-    }
-    
-    .textareas-container {
+    .diff-view-container, .edit-view-container {
         flex-direction: column;
+        height: auto;
     }
-    
-    .btn-compare,
-    .btn-reset {
-        padding: 10px 30px;
-        font-size: 14px;
+
+    .diff-editor-wrapper, .editor-wrapper {
+        width: 100%;
+        margin-bottom: 1rem;
+        height: 30vh;
     }
-    
-    .btn-reset {
-        margin-left: 0;
-        margin-top: 10px;
+
+    .copy-icon-container {
+        top: 5px;
+        right: 5px;
     }
+
+    .btn-container .btns-jsoncompare {
+        margin: 3px;
+        font-size: 11px;
+        height: auto;
+        width: auto;
+    }
+
+    .Toastify__toast {
+        font-size: 13px;
+        min-width: 180px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .diff-editor-wrapper, .editor-wrapper {
+        height: 25vh;
+    }
+
+    .btn-container .btns-jsoncompare {
+        margin: 2px;
+        font-size: 12px;
+    }
+
+    .copy-icon-container {
+        top: 5px;
+        right: 5px;
+        font-size: 20px;
+    }
+}
+
+/* Toastify styles */
+.Toastify__toast-container {
+    width: 100%;
+}
+
+.Toastify__toast {
+    max-width: 53%;
+    font-size: 14px;
+    margin: auto;
+    background-color: #333;
+    color: white;
+}
+
+.Toastify__toast-body {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.Toastify__close-button {
+    color: white;
+    margin: 0.938rem 2px 2px 5px;
+    display: flex;
+    justify-self: center;
+}
+
+/* Ace editor search styles */
+.ace_editor .ace_search {
+    background-color: #4f4f4f !important;
+    color: #f8f8f2 !important;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.ace_editor .ace_search_form, .ace_editor .ace_replace_form {
+    background-color: #272822 !important;
+    color: #f8f8f2 !important;
+    border-radius: 3px;
+}
+
+.ace_editor .ace_button {
+    background-color: #212020 !important;
+    color: #ffffff !important;
+    margin-top: -1px !important;
+    height: 1.3rem;
+    width: 1.3rem !important;
+    border: 1px solid black !important;
+}
+
+.ace_editor .ace_searchbtn_close {
+    background-color: #212020;
+}
+
+/* Custom diff highlighting */
+.ace-merbivore_soft .ace_marker-layer .ace_error {
+    background-color: rgba(255, 0, 0, 0.3); /* Red for removed */
+}
+
+.ace-merbivore_soft .ace_marker-layer .ace_info {
+    background-color: rgba(0, 255, 0, 0.3); /* Green for added */
 }
