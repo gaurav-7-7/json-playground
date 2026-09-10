@@ -1,0 +1,318 @@
+.share-wrapper {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+}
+
+/* Header */
+.share-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.share-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 18px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.share-icon {
+    color: #4ecdc4;
+    font-size: 20px;
+}
+
+.copy-content-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.copy-content-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.copy-content-btn.copied {
+    color: #69db7c;
+    border-color: #69db7c;
+}
+
+/* Editor Container */
+.editor-container {
+    flex: 1;
+    min-height: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.editor-container.view-mode {
+    border-color: rgba(78, 205, 196, 0.3);
+    border-left: 3px solid #4ecdc4;
+}
+
+/* Button Container */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: #fff;
+    border: none;
+    padding: 0.75rem 1.75rem;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Share URL Container */
+.share-url-container {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(45, 47, 49, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.share-url-label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.5rem;
+}
+
+.share-url-box {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.share-url-input {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-size: 13px;
+    font-family: 'Roboto Mono', monospace;
+    outline: none;
+}
+
+.share-url-input:focus {
+    border-color: #4ecdc4;
+}
+
+.copy-url-btn {
+    background: #4ecdc4;
+    border: none;
+    border-radius: 6px;
+    padding: 0 1rem;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-url-btn:hover {
+    background: #44a08d;
+}
+
+.copy-url-btn.copied {
+    background: #69db7c;
+}
+
+.share-url-hint {
+    margin-top: 0.5rem;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Toastify styles - match Parse */
+.Toastify__toast-container {
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.Toastify__toast-container--top-center {
+    top: 1rem;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
+}
+
+.Toastify__toast {
+    background: #1e2022 !important;
+    border-radius: 6px !important;
+    padding: 8px 16px !important;
+    min-height: auto !important;
+    font-family: inherit;
+    width: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+    margin-bottom: 0.5rem;
+}
+
+.Toastify__toast--success {
+    border-left: 3px solid #69db7c !important;
+}
+
+.Toastify__toast--error {
+    border-left: 3px solid #ff6b6b !important;
+}
+
+.Toastify__toast-body {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 14px;
+    color: #fff;
+    flex: 0 0 auto !important;
+}
+
+.Toastify__close-button {
+    display: none !important;
+}
+
+/* Tablet */
+@media only screen and (max-width: 768px) {
+    .share-wrapper {
+        margin: 0.75rem;
+        height: calc(100vh - 70px);
+    }
+
+    .share-header {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    .share-title {
+        font-size: 16px;
+    }
+
+    .btn-container {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 0.6rem 1.25rem;
+        font-size: 13px;
+    }
+
+    .share-url-input {
+        font-size: 12px;
+        padding: 0.6rem 0.75rem;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 480px) {
+    .share-wrapper {
+        margin: 0.5rem;
+        height: calc(100vh - 65px);
+    }
+
+    .share-header {
+        margin-bottom: 0.75rem;
+    }
+
+    .share-title {
+        font-size: 15px;
+    }
+
+    .share-icon {
+        font-size: 18px;
+    }
+
+    .copy-content-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 12px;
+    }
+
+    .btn-container {
+        padding: 0.75rem 0;
+        gap: 0.5rem;
+    }
+
+    .btn-primary {
+        padding: 0.6rem 1.25rem;
+        font-size: 12px;
+        flex: 1;
+    }
+
+    .btn-secondary {
+        padding: 0.6rem 1rem;
+        font-size: 12px;
+    }
+
+    .share-url-container {
+        padding: 0.75rem;
+    }
+
+    .share-url-box {
+        flex-direction: column;
+    }
+
+    .share-url-input {
+        width: 100%;
+    }
+
+    .copy-url-btn {
+        width: 100%;
+        padding: 0.6rem;
+        justify-content: center;
+    }
+}
