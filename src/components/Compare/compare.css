@@ -5,163 +5,302 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
+    height: calc(100vh - 80px);
 }
 
-.diff-view-container, .edit-view-container {
+/* Stats Header */
+.diff-stats-header {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+    flex-shrink: 0;
 }
 
-.edit-view-container {
-    padding-top: 5.5rem;
+.diff-stats-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    background: rgba(45, 47, 49, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.diff-editor-wrapper, .editor-wrapper {
-    border: 1px solid white;
+.diff-stats-panel.removed {
+    border-left: 4px solid #ff6b6b;
+}
+
+.diff-stats-panel.added {
+    border-left: 4px solid #69db7c;
+}
+
+.stats-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stats-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.stats-badge.removed {
+    color: #ff8787;
+}
+
+.stats-badge.added {
+    color: #8ce99a;
+}
+
+.stats-lines {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 13px;
+}
+
+.copy-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
-    padding: 0.5rem;
-    width: 48%;
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
+.copy-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.copy-btn.copied {
+    color: #69db7c;
+    border-color: #69db7c;
+}
+
+/* View Toggle */
+.view-toggle-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.view-toggle {
+    display: flex;
+    background: rgba(45, 47, 49, 0.8);
+    border-radius: 8px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggle-btn {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.toggle-btn.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.toggle-btn:disabled {
+    cursor: not-allowed;
+}
+
+/* Diff View Container */
+.diff-view-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex: 1;
+    min-height: 0;
+}
+
+.diff-editor-wrapper {
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* Hide scrollbars in diff view while keeping scroll functionality */
+.diff-editor-wrapper .ace_scrollbar {
+    display: none !important;
+}
+
+.diff-editor-wrapper .ace_scrollbar-v {
+    display: none !important;
+}
+
+.diff-editor-wrapper .ace_scrollbar-h {
+    display: none !important;
+}
+
+.diff-editor-wrapper.removed {
+    border-top: 3px solid #ff6b6b;
+}
+
+.diff-editor-wrapper.added {
+    border-top: 3px solid #69db7c;
+}
+
+/* Edit View Container */
+.edit-view-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex: 1;
+    min-height: 0;
+}
+
+.editor-wrapper {
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.editor-wrapper .ace_editor {
+    flex: 1;
+    min-height: 0;
+}
+
+.editor-label {
+    padding: 0.5rem 1rem;
+    background: rgba(45, 47, 49, 0.8);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+}
+
+/* Action Buttons */
 .btn-container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.btn-container-a, .btn-container-h {
-    margin: 0;
     justify-content: center;
-    text-align: center;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 1rem 0.5rem;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+    flex-shrink: 0;
 }
 
-.btn-container .btns-jsoncompare {
-    color: #080707 !important;
-    background: #ffffff !important;
+.btn-compare {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    color: #fff;
     border: none;
-    margin: 4px 7px;
-    font-weight: bold;
-    transition: background-color 0.2s ease, transform 0.2s ease-in-out;
-}
-
-.btn-container .btns-jsoncompare:hover {
-    background: #ffffff !important;
-    border: none !important;
-    transform: scale(1.05);
-    color: #080707 !important;
-}
-
-.btn-container-h {
-    margin-left: auto;
-}
-
-.history-icon {
-    color: #fff;
+    padding: 0.75rem 2rem;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    margin: 0.25rem 1rem 0 0;
-    transition: transform 0.2s ease-in-out;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.copy-icon-container {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    z-index: 10;
-    border-radius: 3px;
-    padding: 9px;
-    background: #191717;
-    transition: transform 0.2s ease-in-out;
+.btn-compare:hover {
+    transform: translateY(-2px);
 }
 
-.copy-icon, .copy-icon-check {
-    color: #fff;
-    cursor: pointer;
-    font-size: 25px;
-    transition: transform 0.2s ease-in-out;
-}
-
-.copy-icon-check {
-    color: rgb(70, 238, 70);
-}
-
-.copy-icon-container:hover {
-    transform: scale(1.2);
-}
-
-@media only screen and (max-width: 600px) {
-    .diff-view-container, .edit-view-container {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .diff-editor-wrapper, .editor-wrapper {
-        width: 100%;
-        margin-bottom: 1rem;
-        height: 30vh;
-    }
-
-    .copy-icon-container {
-        top: 5px;
-        right: 5px;
-    }
-
-    .btn-container .btns-jsoncompare {
-        margin: 3px;
-        font-size: 11px;
-        height: auto;
-        width: auto;
-    }
-
-    .Toastify__toast {
-        font-size: 13px;
-        min-width: 180px;
-    }
-}
-
-@media only screen and (max-width: 400px) {
-    .diff-editor-wrapper, .editor-wrapper {
-        height: 25vh;
-    }
-
-    .btn-container .btns-jsoncompare {
-        margin: 2px;
-        font-size: 12px;
-    }
-
-    .copy-icon-container {
-        top: 5px;
-        right: 5px;
-        font-size: 20px;
-    }
-}
-
-/* Toastify styles */
-.Toastify__toast-container {
-    width: 100%;
-}
-
-.Toastify__toast {
-    max-width: 53%;
+.btn-clear {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
     font-size: 14px;
-    margin: auto;
-    background-color: #333;
-    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.Toastify__toast-body {
-    margin: 0 auto;
+.btn-clear:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+/* No Differences Message */
+.no-diff-message {
     text-align: center;
+    padding: 3rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.Toastify__close-button {
-    color: white;
-    margin: 0.938rem 2px 2px 5px;
-    display: flex;
-    justify-self: center;
+.no-diff-message .icon {
+    font-size: 48px;
+    margin-bottom: 1rem;
+    color: #69db7c;
+}
+
+/* Ace Editor Diff Markers - Line Level */
+.diff-line-removed {
+    position: absolute;
+    background-color: rgba(255, 99, 99, 0.15) !important;
+    border-left: 3px solid #ff6b6b !important;
+}
+
+.diff-line-added {
+    position: absolute;
+    background-color: rgba(99, 255, 99, 0.12) !important;
+    border-left: 3px solid #69db7c !important;
+}
+
+/* Ace Editor Diff Markers - Word Level */
+.diff-word-removed {
+    position: absolute;
+    background-color: rgba(255, 99, 99, 0.45) !important;
+    border-radius: 2px;
+}
+
+.diff-word-added {
+    position: absolute;
+    background-color: rgba(99, 255, 99, 0.35) !important;
+    border-radius: 2px;
+}
+
+/* Ace Editor Gutter Styling */
+.ace_gutter-cell.diff-gutter-removed {
+    background-color: rgba(255, 99, 99, 0.2);
+    color: #ff8787;
+}
+
+.ace_gutter-cell.diff-gutter-added {
+    background-color: rgba(99, 255, 99, 0.15);
+    color: #8ce99a;
 }
 
 /* Ace editor search styles */
@@ -171,9 +310,11 @@
     border: 1px solid white;
     padding: 5px;
     border-radius: 3px;
+    max-width: calc(100% - 20px);
 }
 
-.ace_editor .ace_search_form, .ace_editor .ace_replace_form {
+.ace_editor .ace_search_form,
+.ace_editor .ace_replace_form {
     background-color: #272822 !important;
     color: #f8f8f2 !important;
     border-radius: 3px;
@@ -192,11 +333,228 @@
     background-color: #212020;
 }
 
-/* Custom diff highlighting */
-.ace-merbivore_soft .ace_marker-layer .ace_error {
-    background-color: rgba(255, 0, 0, 0.3); /* Red for removed */
+/* Toastify styles - match Parse */
+.Toastify__toast-container {
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
 }
 
-.ace-merbivore_soft .ace_marker-layer .ace_info {
-    background-color: rgba(0, 255, 0, 0.3); /* Green for added */
+.Toastify__toast-container--top-center {
+    top: 1rem;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
+}
+
+.Toastify__toast {
+    background: #1e2022 !important;
+    border-radius: 6px !important;
+    padding: 8px 16px !important;
+    min-height: auto !important;
+    font-family: inherit;
+    width: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+    margin-bottom: 0.5rem;
+}
+
+.Toastify__toast--success {
+    border-left: 3px solid #69db7c !important;
+}
+
+.Toastify__toast--error {
+    border-left: 3px solid #ff6b6b !important;
+}
+
+.Toastify__toast-body {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 14px;
+    color: #fff;
+    flex: 0 0 auto !important;
+}
+
+.Toastify__close-button {
+    display: none !important;
+}
+
+/* Tablet */
+@media only screen and (max-width: 768px) {
+    .json-compare-wrapper {
+        margin: 0.5rem;
+        height: calc(100vh - 60px);
+    }
+
+    .view-toggle-container {
+        margin-bottom: 0.75rem;
+    }
+
+    .diff-stats-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .diff-stats-panel {
+        padding: 0.6rem 0.75rem;
+    }
+
+    .stats-info {
+        gap: 0.75rem;
+    }
+
+    .stats-badge {
+        font-size: 13px;
+    }
+
+    .stats-lines {
+        font-size: 12px;
+    }
+
+    .diff-view-container,
+    .edit-view-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .diff-editor-wrapper,
+    .editor-wrapper {
+        flex: 1;
+        height: auto;
+        min-height: 0;
+    }
+
+    .view-toggle {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .toggle-btn {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-container {
+        padding: 0.5rem 0;
+        gap: 0.75rem;
+    }
+
+    .btn-compare {
+        padding: 0.6rem 1.5rem;
+        font-size: 14px;
+    }
+
+    .btn-clear {
+        padding: 0.6rem 1.25rem;
+        font-size: 13px;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 480px) {
+    .json-compare-wrapper {
+        margin: 0.5rem;
+        height: calc(100vh - 65px);
+    }
+
+    .view-toggle-container {
+        margin-bottom: 0.5rem;
+    }
+
+    .diff-stats-header {
+        gap: 0.4rem;
+    }
+
+    .diff-stats-panel {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0.5rem 0.6rem;
+    }
+
+    .stats-info {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .stats-badge {
+        font-size: 12px;
+    }
+
+    .stats-lines {
+        font-size: 11px;
+    }
+
+    .copy-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 12px;
+    }
+
+    .diff-view-container,
+    .edit-view-container {
+        gap: 0.5rem;
+    }
+
+    .diff-editor-wrapper,
+    .editor-wrapper {
+        height: auto;
+        flex: 1;
+    }
+
+    .editor-label {
+        padding: 0.4rem 0.75rem;
+        font-size: 12px;
+    }
+
+    .toggle-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 12px;
+    }
+
+    .btn-container {
+        padding: 0.5rem 0;
+        gap: 0.5rem;
+    }
+
+    .btn-compare {
+        padding: 0.5rem 1.25rem;
+        font-size: 13px;
+    }
+
+    .btn-clear {
+        padding: 0.5rem 1rem;
+        font-size: 12px;
+    }
+
+    .no-diff-message {
+        padding: 2rem 1rem;
+        font-size: 14px;
+    }
+
+    .no-diff-message .icon {
+        font-size: 36px;
+    }
+}
+
+/* Small mobile */
+@media only screen and (max-width: 360px) {
+    .diff-stats-panel {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    .copy-btn {
+        align-self: flex-end;
+    }
+
+    .btn-compare {
+        padding: 0.4rem 1rem;
+        font-size: 12px;
+    }
+
+    .btn-clear {
+        padding: 0.4rem 0.8rem;
+        font-size: 11px;
+    }
 }

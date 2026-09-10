@@ -5,15 +5,15 @@
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
+    height: calc(100vh - 80px);
 }
 
 .button-row-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-
+    align-items: center;
+    flex-shrink: 0;
 }
-
 
 .btn-expand-bottom {
     margin: 5px 36px 0px 2px;
@@ -41,19 +41,14 @@
     border-radius: 4px;
 }
 
-@media only screen and (max-width: 600px) {
-    .json-heading {
-        font-size: 1.5em;
-    }
-}
-
 .editor-container {
     display: flex;
     justify-content: center;
     padding: 0.5rem;
-    border: 1px solid white;
-    border-radius: 4px;
-    height: 80vh;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    flex: 1;
+    min-height: 0;
     position: relative;
 }
 
@@ -64,150 +59,264 @@
     display: flex;
     flex-wrap: wrap;
     padding: 1rem 0.5rem;
+    gap: 0.75rem;
 }
 
-.btn-container-a .btns-jsontool,
-.btns-history, .btns-clear {
-    color: #080707 !important;
-    background: #ffffff !important;
-    border: none;
-    margin: 4px 7px;
-    font-weight: bold;
-    transition: background-color 0.2s ease, transform 0.2s ease-in-out;
-}
-
-
-.btn-container-a .btns-jsontool:hover,
-.btns-history:hover, .btns-clear:hover {
-    background: #ffffff !important;
+/* Primary action buttons (Validate, Compress) */
+.btn-container-a .btns-jsontool {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%) !important;
+    color: #fff !important;
     border: none !important;
-    transform: scale(1.05);
-    color: #080707 !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.btns-history {
-    margin-left: auto;
+.btn-container-a .btns-jsontool:hover {
+    transform: translateY(-2px);
 }
 
-/* Toastify styles */
+.btn-container-a .btns-jsontool:active {
+    transform: translateY(0);
+}
+
+/* Clear button - outlined style */
+.btns-clear {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btns-clear:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: none;
+}
+
+/* Toastify styles - Simple minimal */
 .Toastify__toast-container {
-    width: 100%;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.Toastify__toast-container--top-center {
+    top: 1rem;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    right: auto !important;
 }
 
 .Toastify__toast {
-    max-width: 53%;
-    font-size: 14px;
-    margin: auto;
-    background-color: #333;
-    color: white;
+    background: #1e2022 !important;
+    border-radius: 6px !important;
+    padding: 8px 16px !important;
+    min-height: auto !important;
+    font-family: inherit;
+    width: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+    margin-bottom: 0.5rem;
+}
+
+.Toastify__toast--success {
+    border-left: 3px solid #69db7c !important;
+}
+
+.Toastify__toast--error {
+    border-left: 3px solid #ff6b6b !important;
 }
 
 .Toastify__toast-body {
-    margin: 0 auto;
-    text-align: center;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 14px;
+    color: #fff;
+    flex: 0 0 auto !important;
 }
 
 .Toastify__close-button {
-    color: white;
-    margin: 0.938rem 2px 2px 5px;
-    display: flex;
-    justify-self: center;
+    display: none !important;
 }
 
 .copy-icon-container {
     position: absolute;
-    top: 1rem;
-    right: 1.5rem;
+    top: 0.75rem;
+    right: 1rem;
     z-index: 10;
-    border-radius: 3px;
-    padding: 9px;
-    background: #191717;
+    border-radius: 4px;
+    padding: 8px;
+    background: rgba(25, 23, 23, 0.9);
     transition: transform 0.2s ease-in-out;
 }
 
 .copy-icon {
     color: #fff;
     cursor: pointer;
-    font-size: 25px;
+    font-size: 22px;
     transition: transform 0.2s ease-in-out;
-}
-
-.btn-container-a .btns-clear {
-    margin-right: auto;
+    display: block;
 }
 
 .history-icon {
     color: #fff;
     cursor: pointer;
-    margin: 0.25rem 1rem 0 0;
+    margin: 0.25rem 0.5rem 0 0;
     transition: transform 0.2s ease-in-out;
+}
+
+.history-icon:hover {
+    transform: scale(1.1);
 }
 
 .copy-icon-check {
     color: rgb(70, 238, 70);
-    font-size: 25px;
+    font-size: 22px;
     transition: transform 0.2s ease-in-out;
+    display: block;
 }
 
 .copy-icon-container:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
-@media only screen and (max-width: 600px) {
-    .editor-container {
-        height: 60vh;
+/* Tablet */
+@media only screen and (max-width: 768px) {
+    .json-wrapper {
+        margin: 0.75rem;
+        height: calc(100vh - 70px);
     }
 
-    .copy-icon-container {
-        top: 5px;
-        right: 5px;
+    .editor-container {
+        padding: 0.25rem;
+    }
+
+    .btn-container-a, .btn-container-h {
+        padding: 0.75rem 0.25rem;
+        gap: 0.5rem;
     }
 
     .btn-container-a .btns-jsontool {
-        margin: 3px;
-        font-size: 11px;
-        height: auto;
-        width: auto;
+        padding: 0.6rem 1.2rem;
+        font-size: 13px;
     }
-    .btn-container-a .btns-clear {
-        font-size: 11px;
-        height: auto;
-        width: auto;
+    
+    .btns-clear {
+        padding: 0.6rem 1.2rem;
+        font-size: 13px;
     }
 
-    .btn-container-a .history-icon {
-        
+    .copy-icon-container {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 6px;
+    }
+
+    .copy-icon, .copy-icon-check {
+        font-size: 20px;
+    }
+
+    .history-icon {
+        font-size: 28px !important;
+    }
+}
+
+/* Mobile */
+@media only screen and (max-width: 480px) {
+    .json-wrapper {
+        margin: 0.5rem;
+        height: calc(100vh - 65px);
+    }
+
+    .json-heading {
+        font-size: 1.25em;
+        padding: 0.75rem 15px;
+    }
+
+    .button-row-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-container-a {
+        order: 1;
+        justify-content: center;
+        padding: 0.5rem;
+        gap: 0.5rem;
+    }
+
+    .btn-container-h {
+        order: 2;
+        justify-content: center;
+        padding: 0.25rem;
+    }
+
+    .btn-container-a .btns-jsontool {
+        padding: 0.5rem 1rem;
+        font-size: 12px;
+        flex: 1;
+        max-width: 120px;
+    }
+    
+    .btns-clear {
+        padding: 0.5rem 1rem;
+        font-size: 12px;
+        flex: 1;
+        max-width: 100px;
+    }
+
+    .copy-icon-container {
+        top: 0.25rem;
+        right: 0.25rem;
+        padding: 5px;
+    }
+
+    .copy-icon, .copy-icon-check {
+        font-size: 18px;
+    }
+
+    .history-icon {
+        font-size: 26px !important;
+        margin: 0;
     }
 
     .Toastify__toast {
         font-size: 13px;
-        min-width: 180px;
     }
 }
 
-@media only screen and (max-width: 400px) {
-    .editor-container {
-        height: 50vh;
-    }
-
+/* Small mobile */
+@media only screen and (max-width: 360px) {
     .btn-container-a .btns-jsontool {
-        margin: 2px;
-        font-size: 12px;
+        padding: 0.4rem 0.75rem;
+        font-size: 11px;
     }
-
-    .copy-icon-container {
-        top: 5px;
-        right: 5px;
-        font-size: 20px;
+    
+    .btns-clear {
+        padding: 0.4rem 0.75rem;
+        font-size: 11px;
     }
 }
 
+/* Ace editor search styles */
 .ace_editor .ace_search {
     background-color: #4f4f4f !important;
     color: #f8f8f2 !important;
     border: 1px solid white;
     padding: 5px;
     border-radius: 3px;
+    max-width: calc(100% - 20px);
 }
 
 .ace_editor .ace_search_form, .ace_editor .ace_replace_form {
@@ -227,4 +336,16 @@
 
 .ace_editor .ace_searchbtn_close {
     background-color: #212020;
+}
+
+/* JSON Error Line Highlighting */
+.json-error-line {
+    position: absolute;
+    background-color: rgba(255, 99, 99, 0.15) !important;
+    border-left: 3px solid #ff6b6b !important;
+}
+
+/* Error gutter icon styling */
+.ace_gutter-cell.ace_error {
+    background-color: rgba(255, 99, 99, 0.2);
 }
