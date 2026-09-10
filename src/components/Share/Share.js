@@ -16,7 +16,13 @@ import './share.css';
 // Compress and encode content to URL-safe base64
 const encodeContent = (content) => {
     const uint8 = deflate(content);
-    const base64 = btoa(String.fromCharCode(...uint8))
+    // Use chunk-based approach to avoid call stack overflow on large arrays
+    let binary = '';
+    const chunkSize = 8192;
+    for (let i = 0; i < uint8.length; i += chunkSize) {
+        binary += String.fromCharCode(...uint8.subarray(i, i + chunkSize));
+    }
+    const base64 = btoa(binary)
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=+$/, '');
@@ -25,6 +31,10 @@ const encodeContent = (content) => {
 
 // Decode URL-safe base64 and decompress
 const decodeContent = (encoded) => {
+    if (!encoded || typeof encoded !== 'string') {
+        throw new Error('Invalid share key');
+    }
+
     let base64 = encoded
         .replace(/-/g, '+')
         .replace(/_/g, '/');
@@ -32,7 +42,10 @@ const decodeContent = (encoded) => {
     while (base64.length % 4) base64 += '=';
     
     const compressed = atob(base64);
-    const uint8 = new Uint8Array([...compressed].map(c => c.charCodeAt(0)));
+    const uint8 = new Uint8Array(compressed.length);
+    for (let i = 0; i < compressed.length; i++) {
+        uint8[i] = compressed.charCodeAt(i);
+    }
     const content = inflate(uint8, { to: 'string' });
     return content;
 };
