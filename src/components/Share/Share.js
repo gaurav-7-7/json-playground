@@ -233,7 +233,7 @@ function Share() {
                 showError('Sync failed');
                 setSyncStatus('error');
             }
-        }, 400);
+        }, 120);
     };
 
     // Broadcast local cursor position with throttling (~90ms)
