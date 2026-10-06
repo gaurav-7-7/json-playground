@@ -1,4 +1,4 @@
-.custom-nav-link-p, .custom-nav-link-c, .custom-nav-link-s {
+.custom-nav-link-p, .custom-nav-link-c, .custom-nav-link-comp, .custom-nav-link-s {
     transition: color 0.3s ease;
     margin: 0 0 0 8px;
     border-radius: 3px;
@@ -10,6 +10,8 @@
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-c:focus,
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-p:hover,
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-p:focus,
+.navbar-dark .navbar-nav .nav-link.custom-nav-link-comp:hover,
+.navbar-dark .navbar-nav .nav-link.custom-nav-link-comp:focus,
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-s:hover,
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-s:focus {
     background-color: #212020;
@@ -18,6 +20,7 @@
 
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-p.active,
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-c.active,
+.navbar-dark .navbar-nav .nav-link.custom-nav-link-comp.active,
 .navbar-dark .navbar-nav .nav-link.custom-nav-link-s.active {
     background-color: #212020;
 }
@@ -35,7 +38,7 @@
         margin-top: 0.5rem;
     }
 
-    .custom-nav-link-p, .custom-nav-link-c, .custom-nav-link-s {
+    .custom-nav-link-p, .custom-nav-link-c, .custom-nav-link-comp, .custom-nav-link-s {
         margin: 0.25rem 0;
         padding: 0.5rem 1rem !important;
         width: 100%;
@@ -59,7 +62,7 @@
         height: 25px;
     }
 
-    .custom-nav-link-p, .custom-nav-link-c, .custom-nav-link-s {
+    .custom-nav-link-p, .custom-nav-link-c, .custom-nav-link-comp, .custom-nav-link-s {
         font-size: 14px;
     }
 }

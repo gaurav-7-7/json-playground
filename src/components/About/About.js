@@ -19,7 +19,7 @@ const About = () => {
                                 <p className='description'>
                                     JSON, which stands for "JavaScript Object Notation," is a human-readable and compact format used to represent complex data structures and facilitate data interchange between systems. Due to its simplicity and readability, JSON is widely adopted across various applications and industries for data communication.<br /><br />
 
-                                    JSON Playground, allows you to effortlessly parse and compare JSON data. Whether you're a developer or just someone working with data, JSON Playground offers a user-friendly interface to handle your JSON needs efficiently. With features like parsing, validation, and comparison, JSON Playground streamlines your workflow and enhances productivity.
+                                    JSON Playground is an all-in-one developer workspace to format, compare, execute, and collaborate on code and data. It features real-time JSON parsing and tree inspection, side-by-side diff comparison, collaborative multi-user rooms, and an integrated multi-language code compiler (JavaScript, TypeScript, Python, Java, C, C++, Go) with instant LeetCode/interview testing and JSON pipeline integration.
                                 </p>
                             </div>
                             <div className='info'>

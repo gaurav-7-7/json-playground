@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Compare from './components/Compare/Compare';
 import Parse from './components/Parse/Parse';
 import Share from './components/Share/Share';
+import Compiler from './components/Compiler/Compiler';
 import About from './components/About/About';
 import './App.css';
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<About />} />
         <Route path="/parse" element={<Parse />} />
         <Route path="/compare" element={<Compare />} />
+        <Route path="/compile" element={<Compiler />} />
         <Route path="/share" element={<Share />} />
         <Route path="/share/:roomKey" element={<Share />} />
       </Routes>

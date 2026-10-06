@@ -28,6 +28,7 @@ const Header = () => {
         <Nav className="mr-auto">
           <Nav.Link as={Link} to="/parse" onClick={() => handleClick('/parse')} className={`custom-nav-link-p ${selected === '/parse' ? 'active' : ''}`}>Parse</Nav.Link>
           <Nav.Link as={Link} to="/compare" onClick={() => handleClick('/compare')} className={`custom-nav-link-c ${selected === '/compare' ? 'active' : ''}`}>Compare</Nav.Link>
+          <Nav.Link as={Link} to="/compile" onClick={() => handleClick('/compile')} className={`custom-nav-link-comp ${selected === '/compile' ? 'active' : ''}`}>Compile</Nav.Link>
           <Nav.Link as={Link} to="/share" onClick={() => handleClick('/share')} className={`custom-nav-link-s ${selected === '/share' || selected?.startsWith('/share/') ? 'active' : ''}`}>Share</Nav.Link>
         </Nav>
         <Nav className='github-social'>

@@ -25,6 +25,14 @@ Built with **React**, **Ace Editor**, and **Google Firebase Realtime Database** 
 - **Active Presence**: Real-time counter showing how many peers are active in your room.
 - **Offline / Local Demo Mode**: Works out of the box locally even before Firebase credentials are configured.
 
+### 4. Code Compiler & Runner (`/compile`)
+- **Multi-Language Support**: Execute scripts in **JavaScript**, **TypeScript**, **Python**, **Java**, **C**, **C++**, and **Go**.
+- **Dual-Engine Execution**: Uses a local self-hosted **Docker Piston** engine with zero-downtime automatic fallback to a free cloud engine (Wandbox).
+- **Custom Stdin & Output Console**: Provide standard input for interview algorithms; inspect stdout, stderr, execution time, and exit status.
+- **Pipeline to Parser (`/parse`)**: 1-click export of JSON output to the JSON Parser & Tree visualizer.
+- **Pipeline to Diff (`/compare`)**: Snapshot earlier brute-force attempts and compare side-by-side with your optimal solution.
+- **Complete Design Doc**: See [docs/COMPILER_DESIGN.md](docs/COMPILER_DESIGN.md).
+
 ---
 
 ## Quick Start (Local Development)
