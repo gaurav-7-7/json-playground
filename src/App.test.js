@@ -13,3 +13,9 @@ test('renders JSON Playground navigation links', () => {
   expect(compileLink).toBeInTheDocument();
   expect(shareLink).toBeInTheDocument();
 });
+
+test('renders sprint toggle button on home route as an easter egg', () => {
+  render(<App />);
+  const sprintBtn = screen.getByRole('button', { name: /toggle 40-day alphabet sprint os/i });
+  expect(sprintBtn).toBeInTheDocument();
+});

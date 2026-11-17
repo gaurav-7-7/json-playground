@@ -32,7 +32,7 @@ const Header = ({ onToggleSprint }) => {
           <Nav.Link as={Link} to="/share" onClick={() => handleClick('/share')} className={`custom-nav-link-s ${selected === '/share' || selected?.startsWith('/share/') ? 'active' : ''}`}>Share</Nav.Link>
         </Nav>
         <Nav className='github-social' style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          {onToggleSprint && (
+          {onToggleSprint && location.pathname === '/' && (
             <button
               onClick={onToggleSprint}
               className="sprint-header-btn"
