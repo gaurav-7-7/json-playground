@@ -2,6 +2,94 @@
     color: white !important;
 }
 
+/* 40-Day Sprint Workspace Home Banner */
+.sprint-home-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: linear-gradient(135deg, #181b22 0%, #1e232e 100%);
+    border: 1px solid #2e3442;
+    border-radius: 14px;
+    padding: 14px 20px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.sprint-home-banner:hover {
+    background: linear-gradient(135deg, #1d212b 0%, #252b38 100%);
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(37, 99, 235, 0.25);
+}
+
+.sprint-home-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.sprint-home-badge {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+}
+
+.sprint-home-title {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.sprint-home-sub {
+    color: #9499A6;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.sprint-home-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #60a5fa;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.sprint-home-arrow {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.sprint-home-banner:hover .sprint-home-arrow {
+    transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+    .sprint-home-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .sprint-home-cta {
+        align-self: flex-end;
+    }
+}
+
+
 .about-heading {
     color: white;
     background: none;

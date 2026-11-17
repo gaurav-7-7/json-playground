@@ -6,7 +6,7 @@ import { FaGithub, FaInfo } from 'react-icons/fa';
 import logo from '../../assets/favicon.png';
 import './header.css'; // Import your custom CSS file
 
-const Header = () => {
+const Header = ({ onToggleSprint }) => {
   const [selected, setSelected] = useState(null);
   const location = useLocation();
 
@@ -31,7 +31,18 @@ const Header = () => {
           <Nav.Link as={Link} to="/compile" onClick={() => handleClick('/compile')} className={`custom-nav-link-comp ${selected === '/compile' ? 'active' : ''}`}>Compile</Nav.Link>
           <Nav.Link as={Link} to="/share" onClick={() => handleClick('/share')} className={`custom-nav-link-s ${selected === '/share' || selected?.startsWith('/share/') ? 'active' : ''}`}>Share</Nav.Link>
         </Nav>
-        <Nav className='github-social'>
+        <Nav className='github-social' style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {onToggleSprint && (
+            <button
+              onClick={onToggleSprint}
+              className="sprint-header-btn"
+              title="40-Day Alphabet Sprint OS"
+              aria-label="Toggle 40-Day Alphabet Sprint OS"
+            >
+              <span className="sprint-header-badge">40</span>
+              <span className="sprint-header-text">Sprint</span>
+            </button>
+          )}
           <Nav.Link className='social-icon' href="https://github.com/gaurav-7-7/json-playground" target="_blank" rel="noopener noreferrer">
             <FaGithub size={25} />
           </Nav.Link>

@@ -66,3 +66,48 @@
         font-size: 14px;
     }
 }
+
+/* 40-Day Alphabet Sprint Navbar Launcher Button */
+.sprint-header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #1e222b;
+    border: 1px solid #2e3340;
+    color: #ECEEF2;
+    padding: 3px 8px 3px 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    line-height: 1;
+    text-decoration: none;
+    outline: none;
+}
+
+.sprint-header-btn:hover {
+    background-color: #272c38;
+    border-color: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+.sprint-header-badge {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.sprint-header-text {
+    letter-spacing: -0.01em;
+}
+

@@ -490,6 +490,7 @@ function Compare() {
                                         showPrintMargin={false}
                                         ref={diffEditorRef1}
                                         setOptions={{
+                                            useWorker: false,
                                             showGutter: true,
                                             highlightActiveLine: false
                                         }}
@@ -509,6 +510,7 @@ function Compare() {
                                         showPrintMargin={false}
                                         ref={diffEditorRef2}
                                         setOptions={{
+                                            useWorker: false,
                                             showGutter: true,
                                             highlightActiveLine: false
                                         }}
@@ -539,6 +541,9 @@ function Compare() {
                                     fontSize={14}
                                     showPrintMargin={false}
                                     ref={editorRef1}
+                                    setOptions={{
+                                        useWorker: false
+                                    }}
                                 />
                             </div>
                             <div className="editor-wrapper">
@@ -559,6 +564,9 @@ function Compare() {
                                     fontSize={14}
                                     showPrintMargin={false}
                                     ref={editorRef2}
+                                    setOptions={{
+                                        useWorker: false
+                                    }}
                                 />
                             </div>
                         </div>

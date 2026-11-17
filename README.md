@@ -1,6 +1,6 @@
 # JSON Playground
 
-A fast, sleek, and feature-rich browser utility for parsing, formatting, diffing, and real-time collaborative editing of JSON data.
+A fast, sleek, and feature-rich browser utility for parsing, formatting, diffing, real-time collaborative editing of JSON data, and structured technical interview preparation.
 
 Built with **React**, **Ace Editor**, and **Google Firebase Realtime Database** (100% Free Tier).
 
@@ -32,6 +32,21 @@ Built with **React**, **Ace Editor**, and **Google Firebase Realtime Database** 
 - **Pipeline to Parser (`/parse`)**: 1-click export of JSON output to the JSON Parser & Tree visualizer.
 - **Pipeline to Diff (`/compare`)**: Snapshot earlier brute-force attempts and compare side-by-side with your optimal solution.
 - **Complete Design Doc**: See [docs/COMPILER_DESIGN.md](docs/COMPILER_DESIGN.md).
+
+### 5. 40-Day Alphabet Sprint OS (`/sprint`)
+- **Blind 75 & Distributed System Design**: Pattern-first execution roadmap featuring 76 high-signal LeetCode patterns (Arrays & Hashing, Two Pointers, Sliding Window, Trees, Graphs, Dynamic Programming) alongside 40 real-world Distributed System Design architectures (LSM Trees vs. B-Trees, Replication & Sharding, Raft/Paxos consensus, Kafka, Rate Limiters, TinyURL, YouTube, Payment Systems).
+- **Dynamic Start Date Engine**: Set any custom start date (or click "Start Today") with real-time reactive recalculation across all 40 days, phase breakdowns, and target deadline countdowns.
+- **Daily 3-Hour Protocol Timers**: Integrated timers implementing the strict 20-minute Struggle Rule (`20m Struggle Rule`, `2h DSA Sprint`, `1h System Design`, `45m Alphabet Mock`) with audio-visual alerts, pause/play, and reset controls.
+- **Daily Engineering Journal & Recall Confidence**: Dedicated scratchpad drawer for each day containing:
+  - Interactive target checklist for DSA problems and System Design topics.
+  - 5-point self-assessment scale (`1 · Stuck`, `2 · Editorial`, `3 · Slow`, `4 · Optimal`, `5 · Mastery`).
+  - Three structured engineering log fields: Algorithmic Pattern & Invariant Notes, Edge Cases & Time/Space Complexity Log, and System Design Trade-offs, QPS Math & Bottlenecks.
+- **Zero-Latency Dual Persistence**:
+  - **Instant Local Storage Hydration**: Zero-delay initial state hydration and synchronous write-through to `localStorage` on every change.
+  - **Cloud Sync via Firebase Realtime Database**: Synchronize and share progress across browsers and devices using unique sprint keys (`?sprintKey=...`).
+  - **Manual Backup & Restore**: One-click JSON export and import for offline backups.
+- **Sunday Spaced-Repetition Reviews**: Pre-configured weekly review milestones to revisit flagged questions and consolidate core patterns before advancing.
+- **Multiple Entry Points**: Launch directly via the top navigation bar (`40 Sprint` badge), the home page launchpad card, or the `/sprint` route.
 
 ---
 
@@ -90,11 +105,17 @@ In the Realtime Database page, click the **"Rules"** tab at the top. Replace the
           ".validate": "newData.isString() && newData.val().length <= 102400"
         }
       }
+    },
+    "sprints": {
+      "$sprintKey": {
+        ".read": true,
+        ".write": true
+      }
     }
   }
 }
 ```
-> **Note:** This rule enforces public read/write for custom rooms while capping any single document at 100 KB, ensuring your database stays safely within the 1 GB free quota.
+> **Note:** This rule enforces public read/write for custom collaboration rooms (capped at 100 KB) and personal 40-Day Sprint tracking workspaces, ensuring your database stays safely within the 1 GB free quota.
 
 ### Step 4: Register Web App & Get Config Keys
 1. In the left-hand menu, click the **Gear Icon ⚙️** next to *Project Overview* and select **Project settings**.

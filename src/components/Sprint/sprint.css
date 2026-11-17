@@ -1,0 +1,1199 @@
+/* ==========================================================================
+   Sprint Workspace Theme & Component Isolation Styles
+   Exact replica of the Notion-style Alphabet Sprint OS workspace
+   ========================================================================== */
+
+.sprint-workspace {
+  box-sizing: border-box;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sprint-workspace *,
+.sprint-workspace *::before,
+.sprint-workspace *::after {
+  box-sizing: border-box;
+}
+
+/* Theme variables */
+.sprint-theme-dark {
+  --sp-bg: #121316;
+  --sp-header-bg: rgba(18, 19, 22, 0.92);
+  --sp-surface: #191B1F;
+  --sp-surface-hover: #202329;
+  --sp-elevated: #22252B;
+  --sp-border: #2A2D35;
+  --sp-text: #ECEEF2;
+  --sp-text-muted: #9499A6;
+  --sp-text-subtle: #666B78;
+  --sp-input-bg: #14161A;
+  --sp-pill-bg: #24272F;
+  --sp-progress-track: #262932;
+  --sp-card-done-bg: #161A18;
+  --sp-card-done-border: rgba(16, 185, 129, 0.3);
+}
+
+.sprint-theme-light {
+  --sp-bg: #FBFBFA;
+  --sp-header-bg: rgba(251, 251, 250, 0.92);
+  --sp-surface: #ffffff;
+  --sp-surface-hover: #F7F7F5;
+  --sp-elevated: #F3F3F1;
+  --sp-border: #E6E6E3;
+  --sp-text: #2F3437;
+  --sp-text-muted: #686C70;
+  --sp-text-subtle: #9B9A97;
+  --sp-input-bg: #F7F7F5;
+  --sp-pill-bg: #EFEFED;
+  --sp-progress-track: #E2E8F0;
+  --sp-card-done-bg: rgba(236, 253, 245, 0.5);
+  --sp-card-done-border: #A7F3D0;
+}
+
+/* Color utility classes using CSS variables */
+.sp-bg {
+  background-color: var(--sp-bg) !important;
+}
+
+.sp-surface {
+  background-color: var(--sp-surface) !important;
+}
+
+.sp-surface:hover {
+  background-color: var(--sp-surface-hover) !important;
+}
+
+.sp-elevated {
+  background-color: var(--sp-elevated) !important;
+}
+
+.sp-border {
+  border-color: var(--sp-border) !important;
+}
+
+.sp-text {
+  color: var(--sp-text) !important;
+}
+
+.sp-text-muted {
+  color: var(--sp-text-muted) !important;
+}
+
+.sp-text-subtle {
+  color: var(--sp-text-subtle) !important;
+}
+
+.sp-input-bg {
+  background-color: var(--sp-input-bg) !important;
+}
+
+.sp-pill-bg {
+  background-color: var(--sp-pill-bg) !important;
+}
+
+/* Explicit SVG Icon Sizing Helpers (Overrides 24px default Lucide React SVG size) */
+.sprint-workspace svg.sp-icon-xs {
+  width: 12px !important;
+  height: 12px !important;
+  min-width: 12px !important;
+  min-height: 12px !important;
+}
+
+.sprint-workspace svg.sp-icon-sm {
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+}
+
+.sprint-workspace svg.sp-icon-md {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+}
+
+.sprint-workspace svg.sp-icon-lg {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+}
+
+/* Top-Left 40 Badge */
+.sprint-workspace .sp-badge-40 {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  border-radius: 8px !important;
+  background-color: #2563eb !important;
+  /* Royal Blue */
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Filter Tab States (Vibrant Purple Active State) */
+.sprint-workspace .sp-tab-active {
+  background-color: #6366f1 !important;
+  color: #ffffff !important;
+  border-color: #6366f1 !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.sprint-workspace .sp-tab-active:hover {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+}
+
+.sprint-workspace .sp-tab-inactive {
+  background-color: var(--sp-surface) !important;
+  color: var(--sp-text-muted) !important;
+  border-color: var(--sp-border) !important;
+}
+
+.sprint-workspace .sp-tab-inactive:hover {
+  color: var(--sp-text) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Base button reset inside Sprint Workspace (eliminates browser white button bevels) */
+.sprint-workspace button {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0.5rem !important;
+}
+
+/* Pure icon-only buttons (Circle, Star, Play, Reset, Close) */
+.sprint-workspace .sprint-icon-btn {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 3px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  color: inherit !important;
+}
+
+.sprint-workspace .sprint-icon-btn:hover {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Custom Checklist Checkbox — White square bullet on dark, bordered on light */
+.sprint-workspace input[type="checkbox"] {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  width: 12px !important;
+  height: 12px !important;
+  min-width: 12px !important;
+  min-height: 12px !important;
+  border-radius: 2.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+  outline: none !important;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.15s ease !important;
+}
+
+.sprint-theme-dark input[type="checkbox"] {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+}
+
+.sprint-theme-light input[type="checkbox"] {
+  background-color: #ffffff !important;
+  border: 1.5px solid #d1d5db !important;
+  border-radius: 3px !important;
+}
+
+.sprint-workspace input[type="checkbox"]:hover {
+  filter: brightness(0.9);
+}
+
+.sprint-workspace input[type="checkbox"]:checked {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* System Design checkbox uses sky blue when checked */
+.sprint-workspace input[type="checkbox"].sd-checkbox:checked,
+.sprint-workspace input[type="checkbox"].sd-check:checked {
+  background-color: #0284c7 !important;
+  border-color: #0284c7 !important;
+}
+
+/* Journal drawer specific 16px checkbox */
+.sprint-workspace input[type="checkbox"].sp-journal-checkbox {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  border-radius: 4px !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #d1d5db !important;
+}
+
+.sprint-theme-dark input[type="checkbox"].sp-journal-checkbox {
+  background-color: #1e222b !important;
+  border: 1.5px solid #4b5563 !important;
+}
+
+/* Day & Item Card Rounding & Border Enhancements */
+.sprint-workspace .sp-day-card {
+  border-radius: 16px !important;
+  border: 1px solid var(--sp-border) !important;
+  transition: all 0.15s ease;
+}
+
+.sprint-workspace .sp-item-card {
+  border-radius: 10px !important;
+  background-color: var(--sp-input-bg) !important;
+  border: 1px solid var(--sp-border) !important;
+  transition: all 0.15s ease;
+}
+
+/* Rounded Cards Matching Google Sites */
+.sprint-workspace .sp-kpi-card {
+  border-radius: 14px !important;
+  background-color: var(--sp-surface) !important;
+  border: 1px solid var(--sp-border) !important;
+}
+
+.sprint-workspace .sp-progress-card {
+  border-radius: 14px !important;
+  background-color: var(--sp-surface) !important;
+  border: 1px solid var(--sp-border) !important;
+}
+
+.sprint-workspace .sp-protocol-bar {
+  border-radius: 14px !important;
+  background-color: var(--sp-surface) !important;
+  border: 1px solid var(--sp-border) !important;
+}
+
+/* Open Journal Micro Button (Exact Google Sites Dimensions: 18px height) */
+.sprint-workspace .sp-btn-journal {
+  height: 18px !important;
+  padding: 0 5px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-pill-bg) !important;
+  color: var(--sp-text-muted) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+}
+
+.sprint-workspace .sp-btn-journal:hover {
+  color: #ffffff !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+.sprint-workspace .sp-btn-journal.has-notes {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #818cf8 !important;
+  border-color: rgba(99, 102, 241, 0.35) !important;
+}
+
+/* ==========================================================================
+   Daily Journal Drawer Styles (Exact Replica of Google Sites Reference)
+   ========================================================================== */
+
+.sprint-workspace .sp-journal-drawer {
+  width: 100% !important;
+  max-width: 44rem !important;
+  height: 100% !important;
+  background-color: var(--sp-surface) !important;
+  border-left: 1px solid var(--sp-border) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.35) !important;
+  overflow: hidden !important;
+}
+
+.sprint-theme-light .sp-journal-drawer {
+  background-color: #ffffff !important;
+  border-left: 1px solid #e5e7eb !important;
+}
+
+.sprint-workspace .sp-journal-header {
+  padding: 16px 24px !important;
+  border-bottom: 1px solid var(--sp-border) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  background-color: var(--sp-surface) !important;
+  flex-shrink: 0 !important;
+}
+
+.sprint-theme-light .sp-journal-header {
+  border-bottom: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.sprint-theme-dark .sp-journal-header {
+  border-bottom: 1px solid #282c35 !important;
+}
+
+.sprint-workspace .sp-journal-day-pill {
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  background-color: #eff6ff !important;
+  border: 1px solid #bfdbfe !important;
+  color: #2563eb !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+}
+
+.sprint-theme-dark .sp-journal-day-pill {
+  background-color: rgba(37, 99, 235, 0.18) !important;
+  border-color: rgba(37, 99, 235, 0.4) !important;
+  color: #60a5fa !important;
+}
+
+.sprint-workspace .sp-journal-title {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  color: var(--sp-text) !important;
+  margin: 0 !important;
+}
+
+.sprint-theme-light .sp-journal-title {
+  color: #111827 !important;
+}
+
+.sprint-workspace .sp-journal-subtitle {
+  font-size: 12px !important;
+  color: var(--sp-text-muted) !important;
+  margin-top: 3px !important;
+  margin-bottom: 0 !important;
+}
+
+.sprint-theme-light .sp-journal-subtitle {
+  color: #6b7280 !important;
+}
+
+.sprint-workspace .sp-journal-nav-btn {
+  height: 32px !important;
+  padding: 0 14px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-surface) !important;
+  color: var(--sp-text) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 5px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  box-sizing: border-box !important;
+}
+
+.sprint-theme-light .sp-journal-nav-btn {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+  color: #111827 !important;
+}
+
+.sprint-workspace .sp-journal-nav-btn:hover:not(:disabled) {
+  background-color: var(--sp-surface-hover) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+.sprint-workspace .sp-journal-nav-btn:disabled {
+  opacity: 0.4 !important;
+  cursor: not-allowed !important;
+  color: var(--sp-text-subtle) !important;
+}
+
+.sprint-theme-light .sp-journal-nav-btn:disabled {
+  color: #9ca3af !important;
+  border-color: #e5e7eb !important;
+}
+
+.sprint-workspace .sp-journal-close-btn {
+  height: 32px !important;
+  width: 32px !important;
+  border-radius: 6px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--sp-text-muted) !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+  transition: all 0.15s ease !important;
+}
+
+.sprint-theme-light .sp-journal-close-btn {
+  color: #4b5563 !important;
+}
+
+.sprint-workspace .sp-journal-close-btn:hover {
+  color: #ef4444 !important;
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+/* Target Checklist Card */
+.sprint-workspace .sp-journal-targets-card {
+  padding: 16px 20px !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-input-bg) !important;
+  margin-bottom: 24px !important;
+}
+
+.sprint-theme-light .sp-journal-targets-card {
+  background-color: #f9fafb !important;
+  border-color: #f0f0f2 !important;
+}
+
+.sprint-workspace .sp-journal-targets-title {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  color: #6366f1 !important;
+  margin-bottom: 12px !important;
+}
+
+.sprint-workspace .sp-journal-target-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  padding: 5px 0 !important;
+}
+
+.sprint-workspace .sp-journal-checkbox {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  border-radius: 4px !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #d1d5db !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle !important;
+  flex-shrink: 0 !important;
+  outline: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.sprint-theme-dark .sp-journal-checkbox {
+  background-color: #1e222b !important;
+  border-color: #4b5563 !important;
+}
+
+.sprint-workspace .sp-journal-checkbox:checked {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.sprint-workspace .sp-journal-checkbox.sd-check:checked {
+  background-color: #0284c7 !important;
+  border-color: #0284c7 !important;
+}
+
+.sprint-workspace .sp-journal-flag-btn {
+  border: 1px solid var(--sp-border) !important;
+  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: var(--sp-text-muted) !important;
+  background-color: var(--sp-surface) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  line-height: 1 !important;
+}
+
+.sprint-theme-light .sp-journal-flag-btn {
+  background-color: #ffffff !important;
+  border-color: #e5e7eb !important;
+  color: #4b5563 !important;
+}
+
+.sprint-workspace .sp-journal-flag-btn.flagged {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #d97706 !important;
+  border-color: rgba(245, 158, 11, 0.35) !important;
+}
+
+/* Self-Assessment Confidence Score Buttons */
+.sprint-workspace .sp-journal-score-grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 10px !important;
+}
+
+.sprint-workspace .sp-journal-score-btn {
+  height: 38px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-input-bg) !important;
+  color: var(--sp-text) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  padding: 0 4px !important;
+  white-space: nowrap !important;
+}
+
+.sprint-theme-light .sp-journal-score-btn {
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+  color: #374151 !important;
+}
+
+.sprint-workspace .sp-journal-score-btn:hover {
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+.sprint-workspace .sp-journal-score-btn.active {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4f46e5 !important;
+  box-shadow: 0 1px 2px rgba(79, 70, 229, 0.3) !important;
+}
+
+/* Scratchpad Section Labels & Textareas */
+.sprint-workspace .sp-journal-section-label {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 8px !important;
+}
+
+.sprint-workspace .sp-journal-textarea {
+  width: 100% !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-input-bg) !important;
+  color: var(--sp-text) !important;
+  padding: 14px 16px !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  outline: none !important;
+  resize: vertical !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+  transition: border-color 0.15s ease !important;
+}
+
+.sprint-theme-light .sp-journal-textarea {
+  background-color: #f9fafb !important;
+  border-color: #e5e7eb !important;
+  color: #1f2937 !important;
+}
+
+.sprint-workspace .sp-journal-textarea:focus {
+  border-color: #6366f1 !important;
+}
+
+.sprint-workspace .sp-journal-textarea::placeholder {
+  color: var(--sp-text-subtle) !important;
+}
+
+.sprint-theme-light .sp-journal-textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Journal Footer */
+.sprint-workspace .sp-journal-footer {
+  padding: 16px 24px !important;
+  border-top: 1px solid var(--sp-border) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  font-size: 12px !important;
+  color: #059669 !important;
+  font-weight: 500 !important;
+  background-color: var(--sp-surface) !important;
+  flex-shrink: 0 !important;
+}
+
+.sprint-theme-light .sp-journal-footer {
+  border-top: 1px solid #e5e7eb !important;
+  background-color: #ffffff !important;
+}
+
+.sprint-theme-dark .sp-journal-footer {
+  border-top: 1px solid #282c35 !important;
+}
+
+.sprint-workspace .sp-col-divider {
+  border-left: 1px solid var(--sp-border) !important;
+}
+
+.sprint-workspace .sp-col-day {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+  width: auto !important;
+  min-width: 230px !important;
+  padding-right: 18px !important;
+}
+
+@media (min-width: 1024px) {
+  .sprint-workspace .sp-col-day {
+    flex: 0 0 240px !important;
+    width: 240px !important;
+    min-width: 240px !important;
+    padding-right: 18px !important;
+  }
+
+  .sprint-workspace .sp-col-dsa {
+    border-left: 1px solid #282c35 !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 0rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    flex: 1 1 auto !important;
+  }
+
+  .sprint-theme-light .sp-col-dsa {
+    border-left: 1px solid #e5e7eb !important;
+  }
+
+  .sprint-workspace .sp-col-sd {
+    border-left: 1px solid #282c35 !important;
+    padding-left: 20px !important;
+    padding-top: 0rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    flex: 0 0 350px !important;
+    width: 310px !important;
+    min-width: 310px !important;
+  }
+
+  .sprint-theme-light .sp-col-sd {
+    border-left: 1px solid #e5e7eb !important;
+  }
+}
+
+.sprint-workspace .sp-day-title-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  white-space: nowrap !important;
+}
+
+.sprint-workspace .sp-day-number {
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+}
+
+.sprint-workspace .sp-day-date {
+  font-size: 12px !important;
+  color: var(--sp-text-muted) !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+/* Sticky Header & Bottom Divider Line */
+.sprint-workspace header,
+.sprint-workspace .sp-top-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 40 !important;
+  background-color: var(--sp-header-bg) !important;
+  border-bottom: 1px solid #282c35 !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.sprint-theme-light header,
+.sprint-theme-light .sp-top-header {
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Back Button */
+.sprint-workspace .sp-btn-back {
+  height: 28px !important;
+  padding: 0 8px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-surface) !important;
+  color: var(--sp-text) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+  margin-right: 2px !important;
+}
+
+.sprint-workspace .sp-btn-back:hover {
+  background-color: var(--sp-surface-hover) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  color: #818cf8 !important;
+}
+
+/* Top Bar Controls — Exact Google Sites 32px Dimensions & Proportions */
+.sprint-workspace .sp-top-timer {
+  height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 10px !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-surface) !important;
+  box-sizing: border-box !important;
+}
+
+.sprint-workspace .sp-timer-clock {
+  width: 15px !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  min-height: 15px !important;
+}
+
+.sprint-workspace .sp-timer-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.sprint-workspace .sp-timer-action {
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+}
+
+.sprint-workspace .sp-timer-reset {
+  width: 13px !important;
+  height: 13px !important;
+  min-width: 13px !important;
+  min-height: 13px !important;
+}
+
+.sprint-workspace .sp-top-theme-btn {
+  height: 32px !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-surface) !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+}
+
+.sprint-workspace .sp-top-theme-btn svg {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+}
+
+.sprint-workspace .sp-top-theme-btn:hover {
+  background-color: var(--sp-surface-hover) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Backup / Reset Button (Exact 32px Dimensions & 8px Radius) */
+.sprint-workspace .sp-btn-backup {
+  height: 32px !important;
+  padding: 0 10px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-surface) !important;
+  color: var(--sp-text) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sprint-workspace .sp-btn-backup svg {
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+}
+
+.sprint-workspace .sp-btn-backup:hover {
+  background-color: var(--sp-surface-hover) !important;
+  border-color: rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Close Cross Button (Exact 32px Dimensions) */
+.sprint-workspace .sp-top-close-btn {
+  height: 32px !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--sp-border) !important;
+  background-color: var(--sp-surface) !important;
+  color: var(--sp-text-muted) !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  transition: all 0.15s ease !important;
+}
+
+.sprint-workspace .sp-top-close-btn svg {
+  width: 15px !important;
+  height: 15px !important;
+  min-width: 15px !important;
+  min-height: 15px !important;
+}
+
+.sprint-workspace .sp-top-close-btn:hover {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #ef4444 !important;
+  border-color: rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Timer Protocol Modes & Presets (Eliminates White Borders, Matches Google Sites Exactly) */
+.sprint-workspace .sp-mode-struggle {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.5) !important;
+}
+
+.sprint-workspace .sp-mode-struggle-badge {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4) !important;
+}
+
+.sprint-workspace .sp-mode-struggle-box {
+  background-color: rgba(245, 158, 11, 0.1) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+.sprint-workspace .sp-mode-dsa {
+  background-color: rgba(99, 102, 241, 0.12) !important;
+  color: #818cf8 !important;
+  border: 1px solid rgba(99, 102, 241, 0.5) !important;
+}
+
+.sprint-workspace .sp-mode-dsa-badge {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+  color: #818cf8 !important;
+  border: 1px solid rgba(99, 102, 241, 0.4) !important;
+}
+
+.sprint-workspace .sp-mode-dsa-box {
+  background-color: rgba(99, 102, 241, 0.1) !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+}
+
+.sprint-workspace .sp-mode-sysdesign {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+}
+
+.sprint-workspace .sp-mode-sysdesign-badge {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+.sprint-workspace .sp-mode-sysdesign-box {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.sprint-workspace .sp-mode-mock {
+  background-color: rgba(244, 63, 94, 0.12) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.5) !important;
+}
+
+.sprint-workspace .sp-mode-mock-badge {
+  background-color: rgba(244, 63, 94, 0.15) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.4) !important;
+}
+
+.sprint-workspace .sp-mode-mock-box {
+  background-color: rgba(244, 63, 94, 0.1) !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+.sprint-workspace .sp-mode-inactive {
+  background-color: var(--sp-surface) !important;
+  color: var(--sp-text-muted) !important;
+  border: 1px solid var(--sp-border) !important;
+}
+
+.sprint-workspace .sp-mode-inactive:hover {
+  color: var(--sp-text) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Difficulty Badges */
+.sp-badge-easy {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.sp-badge-medium {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+.sp-badge-hard {
+  background-color: rgba(244, 63, 94, 0.12) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+/* Phase Badges */
+.sp-phase-1 {
+  background-color: rgba(14, 165, 233, 0.12) !important;
+  color: #38bdf8 !important;
+  border: 1px solid rgba(14, 165, 233, 0.3) !important;
+}
+
+.sp-phase-2 {
+  background-color: rgba(139, 92, 246, 0.12) !important;
+  color: #a78bfa !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+.sp-phase-3 {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+}
+
+.sp-phase-4 {
+  background-color: rgba(244, 63, 94, 0.12) !important;
+  color: #fb7185 !important;
+  border: 1px solid rgba(244, 63, 94, 0.3) !important;
+}
+
+/* Spaced Repetition Pill */
+.sprint-workspace .sp-spaced-rep {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+  border-radius: 4px !important;
+  padding: 2px 7px !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+.sprint-theme-light .sp-spaced-rep {
+  background-color: #fef3c7 !important;
+  color: #d97706 !important;
+  border: 1px solid #fde68a !important;
+}
+
+/* Cloud Status Badges */
+.sprint-workspace .sp-cloud-connected {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+}
+
+.sprint-workspace .sp-cloud-syncing {
+  background-color: rgba(99, 102, 241, 0.12) !important;
+  color: #818cf8 !important;
+  border: 1px solid rgba(99, 102, 241, 0.3) !important;
+}
+
+.sprint-workspace .sp-cloud-local {
+  background-color: rgba(245, 158, 11, 0.12) !important;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+}
+
+/* Isolation resets against Bootstrap and App.css */
+.sprint-workspace header {
+  background-color: var(--sp-header-bg) !important;
+  padding: 0 !important;
+  text-align: left !important;
+  color: inherit !important;
+}
+
+.sprint-workspace section {
+  padding: 0 !important;
+}
+
+.sprint-workspace h1,
+.sprint-workspace h2,
+.sprint-workspace h3,
+.sprint-workspace h4 {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  color: inherit !important;
+}
+
+.sprint-workspace ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sprint-workspace ul li {
+  padding: 0 !important;
+}
+
+.sprint-workspace a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+/* Custom scrollbar suppression */
+.sprint-workspace .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.sprint-workspace .no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Animations */
+@keyframes sprintFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes sprintSlideInRight {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: sprintFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: sprintSlideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

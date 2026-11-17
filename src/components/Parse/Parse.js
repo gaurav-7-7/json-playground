@@ -475,6 +475,9 @@ Shortcuts:
                         showPrintMargin={false}
                         ref={editorRef}
                         annotations={annotations}
+                        setOptions={{
+                            useWorker: false
+                        }}
                     />
                     <div className="copy-icon-container" onClick={copyText} title="Copy to clipboard">
                         {showCopyIcon ? (

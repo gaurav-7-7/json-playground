@@ -24,16 +24,16 @@ const About = () => {
                             </div>
                             <div className='info'>
                                 <h3 className='about-heading'>What is JSON?</h3>
-                                <p className='description'>
-                                    There are several reasons why you should consider using JSON, the key reason being that JSON is independent of your system's programming language, despite being derived from JavaScript. Not only is JSON language-independent, but it also represents data that speaks common elements of many programming languages, effectively making it into a universal data representation understood by all systems.<br />
-                                    Other reasons include:
+                                <div className='description'>
+                                    JSON is independent of your system's programming language, despite being derived from JavaScript. Not only is JSON language-independent, but it also represents data that speaks common elements of many programming languages, effectively making it into a universal data representation understood by all systems.<br /><br />
+                                    Key benefits include:
                                     <ul className='list'>
                                         <li>Readability - JSON is human-readable, given proper formatting.</li>
                                         <li>Compactness - JSON data format doesn't use a complete markup structure, unlike XML.</li>
                                         <li>It's easy to analyze into logical syntactic components, especially in JavaScript.</li>
                                         <li>Countless JSON libraries are available for most programming languages. </li>
                                     </ul>
-                                </p>
+                                </div>
                             </div>
                         </section>
                         {/* <section id="footer" className='footer-container'>
